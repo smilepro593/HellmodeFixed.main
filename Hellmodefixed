@@ -1,0 +1,106 @@
+-----------------------------
+-- 🚫 BLOCK ALL OLD MODES
+-----------------------------
+getgenv().HellModeV2 = false
+getgenv().HellModeV6 = false
+getgenv().BrokenMode = false
+getgenv().UltraHardMode = false
+getgenv().ImpossibleMode = false
+getgenv().HardcoreMode = false
+getgenv().MayhemMode = false
+
+for _,v in pairs(getgenv()) do
+    if type(v) == "thread" then
+        pcall(task.cancel, v)
+    end
+end
+
+-----------------------------
+-- SERVICES
+-----------------------------
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local player = Players.LocalPlayer
+local stats = ReplicatedStorage:WaitForChild("GameStats")
+local plrStats = stats:WaitForChild("Player_"..player.Name)
+
+-----------------------------
+-- 🎮 CAPTION (GIỮ CHỮ DOORS GỐC)
+-----------------------------
+task.spawn(function()
+    local caption = require(player.PlayerGui.MainUI.Initiator.Main_Game)
+    caption.caption("HELL MODE SCRIPT BY SMILE X TUFFMU", true)
+    task.wait(4)
+    caption.caption("", true)
+end)
+
+-----------------------------
+-- 🏃 SPRINT
+-----------------------------
+loadstring(game:HttpGet(
+"https://raw.githubusercontent.com/trungdepth-dot/Sprint-stamina-v2/refs/heads/main/Sprint", true))()
+
+-----------------------------
+-- 🏚️ FLOOR 2 THEME
+-----------------------------
+loadstring(game:HttpGet(
+"https://raw.githubusercontent.com/localplayerr/Doors-stuff/refs/heads/main/Floor%202%20script"))()
+
+-----------------------------
+-- ⛔ CHẶN MODE KÍCH HOẠT SỚM
+-----------------------------
+local function canSpawn()
+    return plrStats.LatestRoom.Value >= 10
+end
+
+-----------------------------
+-- 👹 ENTITY SPAWNER (HELL + IMPOSSIBLE)
+-----------------------------
+task.spawn(function()
+    while true do
+        task.wait(math.random(25,40))
+        if not canSpawn() then continue end
+
+        local chance = math.random()
+        local spawnCount = 1
+
+        if chance <= 0.000000001 then
+            spawnCount = math.random(3,5) -- cực hiếm
+        elseif chance <= 0.005 then
+            spawnCount = 2 -- 0.5%
+        end
+
+        for i = 1, spawnCount do
+            local pick = math.random(1,4)
+
+            if pick == 1 then
+                -- Ripper
+                loadstring(game:HttpGet(
+                "https://raw.githubusercontent.com/eoyoustme/rebouna/refs/heads/main/Ripper%20old2"))()
+
+            elseif pick == 2 then
+                -- Depth
+                loadstring(game:HttpGet(
+                "https://raw.githubusercontent.com/localplayerr/Doors-stuff/refs/heads/main/Immersive%20mode/Detph"))()
+
+            elseif pick == 3 then
+                -- Cease
+                loadstring(game:HttpGet(
+                "https://raw.githubusercontent.com/smilepro593/HellEntities/main/Cease.lua"))()
+
+            elseif pick == 4 then
+                -- Rebound
+                loadstring(game:HttpGet(
+                "https://raw.githubusercontent.com/smilepro593/HellEntities/main/Rebound.lua"))()
+            end
+
+            task.wait(1.5)
+        end
+    end
+end)
+
+-----------------------------
+-- 🔥 HELL MODE CHÍNH (BẢN BẠN GỬI)
+-----------------------------
+loadstring(game:HttpGet(
+"https://raw.githubusercontent.com/smilepro593/Hellmodev100000/main/Hellmode"))()
